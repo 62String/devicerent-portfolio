@@ -16,8 +16,11 @@ const mapInventoryStatus = (sourceStatus) => {
   return { status: 'active', statusReason: '' };
 };
 
+// iOS 단말 시리얼 접두사 — 조직별 시리얼 체계에 맞춰 환경변수로 변경 가능
+const IOS_SERIAL_PREFIX = process.env.IOS_SERIAL_PREFIX || 'DEV_i_';
+
 const inferOsName = (serialNumber) =>
-  /^DEV_i_/i.test(serialNumber) ? 'iOS' : 'Android';
+  String(serialNumber || '').toLowerCase().startsWith(IOS_SERIAL_PREFIX.toLowerCase()) ? 'iOS' : 'Android';
 
 const inferDeviceType = (...values) => {
   const text = values.map(cleanValue).join(' ').toLowerCase();
@@ -124,7 +127,7 @@ const parseDeviceWorkbook = (xlsx, workbook) => {
 
   const androidSheet = workbook.SheetNames.find((name) => name.toLowerCase().includes('aos'));
   const iosSheet = workbook.SheetNames.find((name) => name.toLowerCase().includes('ios'));
-  if (!androidSheet || !iosSheet) throw new Error('Required sheets (DeviceList, AOS/iOS) not found in Excel file');
+  if (!androidSheet || !iosSheet) throw new Error(`Required sheets (${PREFERRED_SHEET_NAME} or AOS/iOS) not found in Excel file`);
 
   return {
     devices: [

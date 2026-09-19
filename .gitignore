@@ -1,11 +1,22 @@
 # Node.js
 node_modules/
-.env
 *.log
-echo "tests/coverage/" >> .gitignore
-git restore tests/coverage/*
+
+# Environment
 .env
 .env.development
 .env.development.local
 .env.production
-docker-compose.yml
+
+# Build output
+frontend/dist/
+
+# Test / report output
+coverage/
+allure-report/
+allure-results/
+html-report/
+backend/docs/tests/jsdoc/
+
+# Runtime export files
+backend/exports/

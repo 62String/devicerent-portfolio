@@ -190,6 +190,11 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
+  state "貸出可能" as Available
+  state "通常貸出中" as NormalRented
+  state "長期貸出 承認待ち" as LongTermPending
+  state "承認済み長期貸出" as LongTermApproved
+
   [*] --> Available: active + rentedBy=null
   Available --> NormalRented: 通常貸出
   Available --> LongTermPending: 長期貸出申請
@@ -197,11 +202,6 @@ stateDiagram-v2
   LongTermPending --> NormalRented: チームリーダー以上が却下
   NormalRented --> Available: 返却
   LongTermApproved --> Available: 返却
-
-  state Available as "貸出可能"
-  state NormalRented as "通常貸出中"
-  state LongTermPending as "長期貸出 承認待ち"
-  state LongTermApproved as "承認済み長期貸出"
 ```
 
 業務ルール：

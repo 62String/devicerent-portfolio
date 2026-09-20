@@ -20,3 +20,6 @@ backend/docs/tests/jsdoc/
 
 # Runtime export files
 backend/exports/
+
+# Local tooling
+.claude/

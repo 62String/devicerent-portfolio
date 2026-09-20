@@ -33,11 +33,7 @@ describe('initDevices', () => {
   let connection;
 
   beforeAll(async () => {
-    connection = await mongoose.connect('mongodb://localhost:27017/devicerent-test', {
-      serverSelectionTimeoutMS: 30000,
-      socketTimeoutMS: 60000,
-      connectTimeoutMS: 60000,
-    });
+    connection = await mongoose.connect(`${process.env.MONGO_URI}initDevices`);
   });
 
   afterAll(async () => {

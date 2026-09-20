@@ -45,11 +45,7 @@ describe('server endpoints', () => {
   let userToken;
 
   beforeAll(async () => {
-    connection = await mongoose.connect('mongodb://localhost:27017/devicerent-test', {
-      serverSelectionTimeoutMS: 30000,
-      socketTimeoutMS: 60000,
-      connectTimeoutMS: 60000,
-    });
+    connection = await mongoose.connect(`${process.env.MONGO_URI}endpoints`);
     adminToken = jwt.sign({ id: 'admin-id', isAdmin: true }, '비밀열쇠12345678', { expiresIn: '1h' });
     userToken = jwt.sign({ id: 'user-id' }, '비밀열쇠12345678', { expiresIn: '1h' });
     require('../../models/User').findOne.mockImplementation((query) => {

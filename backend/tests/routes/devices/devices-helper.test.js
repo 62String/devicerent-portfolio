@@ -35,6 +35,11 @@ afterAll(async () => {
   await mongoServer.stop();
 });
 
+// 개별 테스트의 once 모킹이 소비되지 않고 다음 테스트로 새는 것을 방지
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 beforeEach(async () => {
   await Device.deleteMany({});
   await Device.create({

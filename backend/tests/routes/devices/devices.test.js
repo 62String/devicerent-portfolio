@@ -43,6 +43,11 @@ afterAll(async () => {
   await mongoServer.stop();
 });
 
+// 개별 테스트의 once 모킹이 소비되지 않고 다음 테스트로 새는 것을 방지
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 beforeEach(async () => {
   await Device.deleteMany({});
   await Device.create({
@@ -152,12 +157,12 @@ describe('Devices API', () => {
       expect(res.body.message).toBe('No available devices found');
     });
 
-    it('should return 500 if token is expired', async () => {
+    it('should return 401 if token is expired', async () => {
       const res = await request(app)
         .get('/api/devices/available')
         .set('Authorization', `Bearer ${expiredToken}`);
-      expect(res.status).toBe(500);
-      expect(res.body.message).toBe('Server error');
+      expect(res.status).toBe(401);
+      expect(res.body.message).toBe('Invalid token');
     });
   });
 
@@ -183,7 +188,7 @@ describe('Devices API', () => {
         .post('/api/devices/rent-device')
         .set('Authorization', `Bearer ${userToken}`)
         .send({ deviceId: 'TEST001' });
-      expect(res.status).toBe(400);
+      expect(res.status).toBe(409);
       expect(res.body.message).toBe('Device already rented');
     });
 

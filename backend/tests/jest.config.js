@@ -3,6 +3,8 @@ module.exports = {
   testMatch: ['**/tests/**/*.test.js'],
   rootDir: '..',
   setupFiles: ['<rootDir>/tests/jest.setenv.js'],
+  globalSetup: '<rootDir>/tests/globalSetup.js',
+  globalTeardown: '<rootDir>/tests/globalTeardown.js',
   coveragePathIgnorePatterns: [
     '/tests/',
     '/tests/routes/',

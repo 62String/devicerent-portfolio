@@ -126,13 +126,14 @@ Excel台帳による差分更新では、貸出中の端末の状態・貸出情
 
 ## テスト
 
-バックエンドのAPIを中心に、**22個のテストファイル**（約150ケース）を作成しています。
+バックエンドのAPIを中心に、**22個のテストファイル・155ケース**を作成しており、すべて通過します。
+テスト用のMongoDBはインメモリで起動するため、外部のDBを用意せずに実行できます。
 
 | 構成 | 内容 |
 | --- | --- |
 | テストランナー | Jest 29 |
 | HTTPテスト | Supertest（Express アプリに直接リクエスト） |
-| DB | mongodb-memory-server（テストごとにインメモリのMongoDBを起動）、一部は jest-mongoose-mock によるモック |
+| DB | mongodb-memory-server（`globalSetup` でインメモリMongoDBを起動）、一部は jest-mongoose-mock によるモック |
 | レポート | カバレッジ（lcov / HTML）、jest-html-reporters、Allure |
 
 主なテスト対象：

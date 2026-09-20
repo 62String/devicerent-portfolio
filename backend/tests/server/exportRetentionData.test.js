@@ -31,11 +31,7 @@ describe('exportRetentionData', () => {
   let connection;
 
   beforeAll(async () => {
-    connection = await mongoose.connect('mongodb://localhost:27017/devicerent-test', {
-      serverSelectionTimeoutMS: 30000,
-      socketTimeoutMS: 60000,
-      connectTimeoutMS: 60000,
-    });
+    connection = await mongoose.connect(`${process.env.MONGO_URI}exportRetentionData`);
     // 통합 테스트 실행 전 DB 초기화
     await RentalHistory.deleteMany({});
     await Device.deleteMany({});

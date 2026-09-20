@@ -44,6 +44,11 @@ afterAll(async () => {
   await mongoServer.stop();
 });
 
+// 개별 테스트의 once 모킹이 소비되지 않고 다음 테스트로 새는 것을 방지
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 beforeEach(async () => {
   await Device.deleteMany({});
   await Device.create({
@@ -246,7 +251,7 @@ describe('Devices API - Extended Tests', () => {
         .post('/api/devices/rent-device')
         .set('Authorization', `Bearer ${userToken}`)
         .send({ deviceId: 'TEST001', remark: 'Test rent 2' });
-      expect(secondResponse.status).toBe(400);
+      expect(secondResponse.status).toBe(409);
       expect(secondResponse.body.message).toBe('Device already rented');
     }, 10000);
 
@@ -278,13 +283,6 @@ describe('Devices API - Extended Tests', () => {
         { serialNumber: 'TEST001' },
         { rentedBy: { name: 'Test User', affiliation: 'Test Org' }, rentedAt: new Date(), remark: 'Test rent' }
       );
-      // findOneAndUpdate 모킹
-      jest.spyOn(Device, 'findOneAndUpdate').mockResolvedValueOnce({
-        serialNumber: 'TEST001',
-        rentedBy: null,
-        rentedAt: null,
-        remark: '',
-      });
       const res = await request(app)
         .post('/api/devices/return-device')
         .set('Authorization', `Bearer ${userToken}`)

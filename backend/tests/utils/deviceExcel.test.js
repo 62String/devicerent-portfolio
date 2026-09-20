@@ -10,11 +10,11 @@ describe('device Excel parser', () => {
       ['식별번호', '상태', '구분', '제조사', '기기명', '모델명', 'Chipset', 'CPU', 'GPU', 'Memory', 'Bluetooth', '화면 크기', '해상도', 'OS버전', '등록일', '확인일', '비고', 'UDID'],
       ['DEV_i_001', '정상', 'Phone', 'Apple', 'iPhone 13', 'A2633', 'A15 Bionic', '6-core', '4-core', '4 GB', '5.0', '6.1"', '2532 x 1170', '18.5', '2026-03-25', '2026-03-25', 'QA device', 'sample-udid'],
     ];
-    xlsx.utils.book_append_sheet(workbook, xlsx.utils.aoa_to_sheet(rows), 'DeviceList260325');
+    xlsx.utils.book_append_sheet(workbook, xlsx.utils.aoa_to_sheet(rows), '임포트용');
 
     const parsed = parseDeviceWorkbook(xlsx, workbook);
 
-    expect(parsed.sourceSheets).toEqual(['DeviceList260325']);
+    expect(parsed.sourceSheets).toEqual(['임포트용']);
     expect(parsed.devices).toHaveLength(1);
     expect(parsed.devices[0]).toMatchObject({
       serialNumber: 'DEV_i_001',
@@ -36,7 +36,7 @@ describe('device Excel parser', () => {
     expect(mapInventoryStatus('정상').status).toBe('active');
     expect(mapInventoryStatus('수리').status).toBe('repair');
     expect(mapInventoryStatus('폐기').status).toBe('inactive');
-    expect(mapInventoryStatus('대여')).toEqual({ status: 'inactive', statusReason: '엑셀 상태: 대여' });
+    expect(mapInventoryStatus('대여')).toEqual({ status: 'inactive', statusReason: '기기 상태: 대여' });
     expect(inferOsName('DEV_A_001')).toBe('Android');
     expect(inferOsName('DEV_i_001')).toBe('iOS');
   });

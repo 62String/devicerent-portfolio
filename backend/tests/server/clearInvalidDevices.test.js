@@ -93,7 +93,7 @@ describe('POST /api/admin/clear-invalid-devices', () => {
   let mockFs;
 
   beforeAll(async () => {
-    await mongoose.connect('mongodb://localhost:27017/testdb');
+    await mongoose.connect(`${process.env.MONGO_URI}clearInvalidDevices`);
     adminToken = jwt.sign({ id: 'admin-id', isAdmin: true }, '비밀열쇠12345678', { expiresIn: '1h' });
   });
 

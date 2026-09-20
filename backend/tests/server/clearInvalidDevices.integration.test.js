@@ -102,7 +102,7 @@ const request = require('supertest');
 
     beforeAll(async () => {
       // 실제 MongoDB 인스턴스에 연결
-      await mongoose.connect('mongodb://localhost:27017/testdb');
+      await mongoose.connect(`${process.env.MONGO_URI}clearInvalidDevices-integration`);
       adminToken = jwt.sign({ id: 'admin-id', isAdmin: true }, process.env.JWT_SECRET, { expiresIn: '1h' });
     });
 

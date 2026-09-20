@@ -161,7 +161,9 @@ describe('Auth API', () => {
         affiliation: 'Test Org',
         position: '센터장',
         isPending: false,
-        isAdmin: true
+        isAdmin: true,
+        authProvider: 'local',
+        email: ''
       });
     }, 10000);
 

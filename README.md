@@ -1,3 +1,5 @@
+[日本語](README.md) | [한국어](README.ko.md)
+
 # DeviceRent — テスト端末 貸出管理システム
 
 ## 概要

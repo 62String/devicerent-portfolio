@@ -211,7 +211,7 @@ npm start
 
 ## 문서
 
-- [역기획서(시스템 사양서) (일본어)](docs/DeviceRent_ReverseSpec_ja.md) — 권한, 업무 플로우, 데이터 모델, API 일람
+- [역기획서(시스템 사양서)](docs/DeviceRent_ReverseSpec_ko.md) — 권한, 업무 플로우, 데이터 모델, API 일람
 
 ## 개발 기간
 

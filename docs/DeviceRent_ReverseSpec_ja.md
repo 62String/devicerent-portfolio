@@ -1,3 +1,5 @@
+[日本語](DeviceRent_ReverseSpec_ja.md) | [한국어](DeviceRent_ReverseSpec_ko.md)
+
 # DeviceRent 逆企画書
 
 作成者：ユ・ギヒョン  
